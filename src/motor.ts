@@ -4,7 +4,7 @@ export const posicionCartaRandom = (): number => Math.floor(Math.random() * part
 
 export const sacarCarta = (): void => {
 	console.log(partida.barajaRestante);
-	const nuevaCarta = partida.barajaRestante.splice(5, 1)[0];
+	const nuevaCarta = partida.barajaRestante.splice(posicionCartaRandom(), 1)[0];
 	console.log(nuevaCarta);
 	partida.carta = nuevaCarta;
 };
