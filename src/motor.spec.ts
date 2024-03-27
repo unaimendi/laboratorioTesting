@@ -18,19 +18,75 @@ describe("posicionCartaRandom", () => {
 });
 
 describe("sacarCarta", () => {
+	beforeEach(() => {
+		// Restablecer el estado de partida antes de cada prueba
+		partida.barajaRestante = [
+			{
+				imagenUrl: "/src/assets/Uno.jpg",
+				valor: 1,
+			},
+			{
+				imagenUrl: "/src/assets/Dos.jpg",
+				valor: 2,
+			},
+			{
+				imagenUrl: "/src/assets/Tres.jpg",
+				valor: 3,
+			},
+			{
+				imagenUrl: "/src/assets/Cuatro.jpg",
+				valor: 4,
+			},
+			{
+				imagenUrl: "/src/assets/Cinco.jpg",
+				valor: 5,
+			},
+			{
+				imagenUrl: "/src/assets/Seis.jpg",
+				valor: 6,
+			},
+			{
+				imagenUrl: "/src/assets/Siete.jpg",
+				valor: 7,
+			},
+			{
+				imagenUrl: "/src/assets/Sota.jpg",
+				valor: 0.5,
+			},
+			{
+				imagenUrl: "/src/assets/Caballo.jpg",
+				valor: 0.5,
+			},
+			{
+				imagenUrl: "/src/assets/Rey.jpg",
+				valor: 0.5,
+			},
+		];
+		partida.carta = {
+			imagenUrl: "/src/assets/back.jpg",
+			valor: null,
+		};
+	});
+
+	afterEach(() => {
+		// Limpiar el mock después de cada prueba
+		vi.spyOn(global.Math, "random").mockRestore();
+	});
+
 	it('Si formazamos posicionCartaRandom para que devuelva un 2 la carta que debemos recibir el el "Tres"', () => {
 		// Arrange
 		const cartaEsperada: Carta = {
 			imagenUrl: "/src/assets/Tres.jpg",
 			valor: 3,
 		};
-		vi.spyOn(motor, "posicionCartaRandom").mockReturnValue(2);
 
 		// Act
+		// Mock de Math.random
+		vi.spyOn(global.Math, "random").mockReturnValue(0.2);
 		sacarCarta();
 
 		// Assert
-		expect(partida.carta).toBe(cartaEsperada);
+		expect(partida.carta).toEqual(cartaEsperada);
 	});
 });
 
